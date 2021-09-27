@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyVK</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_ic_groups">Сообщества</string>
+    <string name="name_ic_friends">Друзья</string>
+    <string name="name_ic_news">Новости</string>
+    <integer name="com_vk_sdk_AppId">7959687</integer>
+    <string name="no_city">Город не указан</string>
+    <string name="friend_no_city">Город не указан</string>
+</resources>
