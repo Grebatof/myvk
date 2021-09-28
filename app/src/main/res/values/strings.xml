@@ -8,4 +8,12 @@
     <integer name="com_vk_sdk_AppId">7959687</integer>
     <string name="no_city">Город не указан</string>
     <string name="friend_no_city">Город не указан</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="hello_myvk">Добро пожаловать в приложение MyVK!</string>
+    <string name="login_myvk">Войти</string>
 </resources>

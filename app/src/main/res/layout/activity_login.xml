@@ -4,27 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.view.MainActivity">
+    tools:context=".presentation.ui.view.LoginActivity">
 
-    <FrameLayout
-        android:id="@+id/fl_wrapper"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/text_hello"
+        android:text="@string/hello_myvk"
+        android:gravity="center_horizontal"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button_login"
+        android:text="@string/login_myvk"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        app:itemBackground="@color/design_default_color_primary"
         app:itemIconTint="#fff"
         app:itemTextColor="#fff"
-        app:menu="@menu/nav_menu"
-        app:layout_constraintStart_toEndOf="@id/fl_wrapper"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/text_hello"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

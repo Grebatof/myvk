@@ -1,24 +1,16 @@
-package com.example.myvk.presentation.ui.view.fragment
+package com.example.myvk.presentation.ui.view.fragment.Friends
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myvk.R
-import com.example.myvk.domain.model.FriendModel
-import com.example.myvk.presentation.viewmodel.FriendsViewModel
-import com.github.rahatarmanahmed.cpv.CircularProgressView
-import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
 
 class FriendsFragment : Fragment() {
 
@@ -58,5 +50,9 @@ class FriendsFragment : Fragment() {
         Log.d("!!!", "4")
 
         return inflater.inflate(R.layout.fragment_groups, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

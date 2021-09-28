@@ -10,14 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myvk.R
 import com.example.myvk.domain.model.FriendModel
 import com.example.myvk.domain.use_case.VKFriendsRequest
-import com.example.myvk.presentation.ui.view.fragment.FriendsFragment
+import com.example.myvk.presentation.ui.view.fragment.Friends.FriendsFragment
 import com.example.myvk.presentation.ui.view.fragment.GroupsFragment
 import com.example.myvk.presentation.ui.view.fragment.NewsFragment
-import com.example.myvk.presentation.viewmodel.FriendsViewModel
-import com.example.myvk.presentation.viewmodel.MainViewModel
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.example.myvk.presentation.ui.view.fragment.Friends.FriendsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vk.api.sdk.*
 import com.vk.api.sdk.auth.VKAccessToken
@@ -36,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         friendsViewModel = ViewModelProvider(this).get(FriendsViewModel::class.java)
 
-        VK.login(this, arrayListOf(VKScope.FRIENDS, VKScope.GROUPS))
+
 
         val newsFragment = NewsFragment()
         val friendsFragment = FriendsFragment()
@@ -54,39 +50,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun makeCurrentFragment(fragment: Fragment) =
+    private fun makeCurrentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fl_wrapper, fragment)
             commit()
         }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val callback = object: VKAuthCallback {
-            override fun onLogin(token: VKAccessToken) {
-                // User passed authorization
-                VK.execute(VKFriendsRequest(), object: VKApiCallback<List<FriendModel>> {
-                    override fun success(result: List<FriendModel>) {
-                        /*for (i in result) {
-                            Log.d("!!!", "${i.firstName} ${i.lastName} ${i.avatar}")
-                        }*/
-                        Log.d("!!!", "1")
-                        friendsViewModel?.data(result)
-                        Log.d("!!!", "2")
-
-                    }
-                    override fun fail(error: Exception) {
-                        Toast.makeText(applicationContext, "Error is ${error.toString()}", Toast.LENGTH_LONG).show()
-                        Log.d(TAG, "Error is ${error.toString()}")
-                    }
-                })
-            }
-
-            override fun onLoginFailed(errorCode: Int) {
-                // User didn't pass authorization
-            }
-        }
-        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
     }
+
+
 }

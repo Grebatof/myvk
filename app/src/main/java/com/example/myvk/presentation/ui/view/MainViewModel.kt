@@ -1,4 +1,4 @@
-package com.example.myvk.presentation.viewmodel
+package com.example.myvk.presentation.ui.view
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,18 +6,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.myvk.domain.model.FriendModel
-import com.example.myvk.presentation.ui.view.MainActivity
+import com.vk.api.sdk.VK
+import com.vk.api.sdk.auth.VKScope
 
-class FriendsViewModel(application: Application): AndroidViewModel(application) {
+class MainViewModel(application: Application): AndroidViewModel(application) {
 
     val inputLiveData = MutableLiveData<List<FriendModel>>()
     val outputLiveData = MutableLiveData<List<FriendModel>>()
 
     init {
-        //frBase()
+        privet()
     }
 
-    fun data(items: List<FriendModel>) {
-        inputLiveData.value = items
+    fun privet() {
+        inputLiveData.observe(getApplication(), Observer {
+            outputLiveData.value = it
+        })
     }
 }

@@ -1,4 +1,4 @@
-package com.example.myvk.presentation.ui.view.fragment
+package com.example.myvk.presentation.ui.view.fragment.Friends
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
