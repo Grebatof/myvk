@@ -24,9 +24,9 @@ class LoginViewModel(application: Application): AndroidViewModel(application) {
                 // User passed authorization
                 VK.execute(VKFriendsRequest(), object: VKApiCallback<List<FriendModel>> {
                     override fun success(result: List<FriendModel>) {
-                        for (i in result) {
+                        /*for (i in result) {
                             Log.d("!!!", "${i.firstName} ${i.lastName} ${i.avatar}")
-                        }
+                        }*/
                         loginSuccessLiveData.value = true
 
                     }

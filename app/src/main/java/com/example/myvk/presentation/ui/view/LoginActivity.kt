@@ -4,7 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.myvk.R
 import com.example.myvk.databinding.ActivityLoginBinding
@@ -31,13 +34,14 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         binding.buttonLogin.setOnClickListener {
+            binding.buttonLogin.visibility = View.INVISIBLE
             VK.login(this, arrayListOf(VKScope.FRIENDS, VKScope.GROUPS))
         }
 
         loginViewModel?.loginSuccessLiveData?.observe(this) {
-            Log.d("!!!!", "${it.toString()}")
             if (it == true)
                 startActivity(Intent(applicationContext, MainActivity::class.java))
+            binding.buttonLogin.visibility = View.VISIBLE
         }
 
     }
