@@ -22,7 +22,6 @@
         android:text="@string/login_myvk"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        app:itemIconTint="#fff"
         app:itemTextColor="#fff"
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@id/text_hello"

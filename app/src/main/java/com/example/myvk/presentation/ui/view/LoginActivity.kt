@@ -48,9 +48,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val callback = loginViewModel?.loginVK()
-        if (data == null || !callback?.let {
-                VK.onActivityResult(requestCode, resultCode, data, it)
-            }!!) {
+        callback ?: return
+        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
