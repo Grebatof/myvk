@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myvk.R
 import com.example.myvk.databinding.ActivityMainBinding
-import com.example.myvk.presentation.ui.view.fragment.FriendsFragment
+import com.example.myvk.presentation.ui.view.fragment.friends.FriendsFragment
 import com.example.myvk.presentation.ui.view.fragment.GroupsFragment
 import com.example.myvk.presentation.ui.view.fragment.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

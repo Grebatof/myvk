@@ -1,4 +1,4 @@
-package com.example.myvk.presentation.ui.view.fragment
+package com.example.myvk.presentation.ui.view.fragment.friends
 
 import android.app.Application
 import android.util.Log
