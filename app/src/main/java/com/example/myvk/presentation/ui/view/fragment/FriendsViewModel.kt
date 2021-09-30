@@ -18,7 +18,7 @@ class FriendsViewModel(application: Application): AndroidViewModel(application) 
         VK.execute(VKFriendsRequest(), object: VKApiCallback<List<FriendModel>> {
             override fun success(result: List<FriendModel>) {
                 for (i in result) {
-                    Log.d("friends", "${i.firstName} ${i.lastName} ${i.avatar} ${i.city} ${i.isOnline}")
+                    Log.d("friends", "${i.firstName} ${i.lastName} ${i.avatar.toString()} ${i.isOnline}")
                 }
                 listFriendsLiveData.value = result
             }

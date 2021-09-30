@@ -12,11 +12,12 @@ class VKFriendsRequest: VKRequest<List<FriendModel>> {
         addParam(name = "fields", value = "firstName")
         addParam(name = "fields", value = "last_name")
         addParam(name = "fields", value = "photo_100")
-        //addParam(name = "fields", value = "city")
         //addParam(name = "fields", value = "online")
+        //addParam(name = "fields", value = "city")
     }
 
     override fun parse(r: JSONObject): List<FriendModel> {
+        Log.d("!!!", r.toString())
         val users = r.getJSONObject("response").getJSONArray("items")
         val result = ArrayList<FriendModel>()
         for (i in 0 until users.length()) {

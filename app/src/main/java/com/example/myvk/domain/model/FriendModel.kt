@@ -44,10 +44,10 @@ data class FriendModel(
         fun parse(json: JSONObject) = FriendModel(
             firstName = json.optString("first_name", ""),
             lastName = json.optString("last_name", ""),
-            city = "nov",
-            //city = json.getJSONObject("city").optString("title", ""),
-            avatar = json.optString("photo_100", ""),
+            //city = null,
+            city = json.optJSONObject("city")?.optString("title", ""),
+            avatar = json.optString("photo_100", null),
             //isOnline = true)
-            isOnline = json.optBoolean("online", false))
+            isOnline = json.optInt("online") == 1)
     }
 }
