@@ -17,11 +17,9 @@ class VKFriendsRequest: VKRequest<List<FriendModel>> {
     }
 
     override fun parse(r: JSONObject): List<FriendModel> {
-        Log.d("!!!", r.toString())
         val users = r.getJSONObject("response").getJSONArray("items")
         val result = ArrayList<FriendModel>()
         for (i in 0 until users.length()) {
-            Log.d("!!!", users.getJSONObject(i).toString())
             result.add(FriendModel.parse(users.getJSONObject(i)))
         }
         return result

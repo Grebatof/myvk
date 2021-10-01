@@ -20,7 +20,7 @@ class FriendsViewModel(application: Application): AndroidViewModel(application) 
                 for (i in result) {
                     Log.d("friends", "${i.firstName} ${i.lastName} ${i.avatar.toString()} ${i.isOnline}")
                 }
-                listFriendsLiveData.value = result
+                listFriendsLiveData.postValue(result)
             }
             override fun fail(error: Exception) {
                 Toast.makeText(getApplication(), "Error is ${error.toString()}", Toast.LENGTH_LONG).show()
