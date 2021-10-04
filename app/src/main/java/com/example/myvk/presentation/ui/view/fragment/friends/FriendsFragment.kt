@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,7 @@ class FriendsFragment : Fragment() {
     val friendsViewModel: FriendsViewModel by viewModels()
 
     private lateinit var binding: FragmentFriendsBinding
+    private val privet: FriendsAdapter = FriendsAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentFriendsBinding.inflate(inflater, container, false)
@@ -26,17 +28,23 @@ class FriendsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //Log.d("onViewCreated", "onViewCreated")
+        binding.recyclerFriends.layoutManager = LinearLayoutManager(context)
+        binding.recyclerFriends.adapter = privet
+        Log.d("onViewCreated", "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onResume() {
+        Log.d("onResume", "onResume")
+        super.onResume()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         if (!hidden) {
-            binding.recyclerFriends.layoutManager = LinearLayoutManager(context)
             friendsViewModel.loadFriends()
             friendsViewModel.listFriendsLiveData.observe(this, Observer {
-                binding.recyclerFriends.adapter = friendsViewModel.listFriendsLiveData.value?.let {
-                    FriendsAdapter(it)
+                friendsViewModel.listFriendsLiveData.value?.let {
+                    privet.setItems(it)
                 }
             })
         }

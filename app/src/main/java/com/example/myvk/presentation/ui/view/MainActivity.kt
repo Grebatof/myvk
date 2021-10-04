@@ -50,34 +50,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayFragment(fragment: Fragment) {
         var position: Int = 1
-        supportFragmentManager.beginTransaction().apply {
-            supportFragmentManager.fragments.forEach {
-                if (it.isVisible) {
-                    // Если пытаемся вызвать уже открытый фрагмент
-                    if (it == fragment) {
-                        return
-                    }
-                    // Если мы не встретили fragment в массиве supportFragmentManager.fragments, значит нужный нам фрагмент справа
-                    if (position == 1)
-                        supportFragmentManager
-                            .beginTransaction()
-                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-                            .show(fragment)
-                            .hide(it)
-                            .commit()
-                    // Если мы встретили fragment в массиве supportFragmentManager.fragments, значит нужный нам фрагмент слева
-                    else if (position == -1)
-                        supportFragmentManager
-                            .beginTransaction()
-                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
-                            .show(fragment)
-                            .hide(it)
-                            .commit()
+        supportFragmentManager.fragments.forEach {
+            if (it.isVisible) {
+                // Если пытаемся вызвать уже открытый фрагмент
+                if (it == fragment) {
                     return
                 }
-                if (it == fragment && position == 1) {
-                    position = -1
-                }
+                // Если мы не встретили fragment в массиве supportFragmentManager.fragments, значит нужный нам фрагмент справа
+                if (position == 1)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+                        .show(fragment)
+                        .hide(it)
+                        .commit()
+                // Если мы встретили fragment в массиве supportFragmentManager.fragments, значит нужный нам фрагмент слева
+                else if (position == -1)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
+                        .show(fragment)
+                        .hide(it)
+                        .commit()
+                return
+            }
+            if (it == fragment && position == 1) {
+                position = -1
             }
         }
     }

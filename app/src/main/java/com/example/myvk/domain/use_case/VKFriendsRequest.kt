@@ -7,8 +7,8 @@ import com.vk.api.sdk.VKMethodCall
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 
-class VKFriendsRequest: VKRequest<List<FriendModel>> {
-    constructor(): super("friends.get") {
+class VKFriendsRequest() : VKRequest<List<FriendModel>>("friends.get") {
+    init {
         addParam(name = "fields", value = "firstName")
         addParam(name = "fields", value = "last_name")
         addParam(name = "fields", value = "photo_100")
@@ -25,7 +25,7 @@ class VKFriendsRequest: VKRequest<List<FriendModel>> {
         return result
     }
 
-    override fun onExecute(manager: VKApiManager): List<FriendModel> {
+    /*override fun onExecute(manager: VKApiManager): List<FriendModel> {
         val config = manager.config
 
         params["lang"] = "ru"
@@ -37,5 +37,5 @@ class VKFriendsRequest: VKRequest<List<FriendModel>> {
             .method(method)
             .version(config.version)
             .build(), this)
-    }
+    }*/
 }
