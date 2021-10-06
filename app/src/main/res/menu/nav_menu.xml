@@ -15,4 +15,5 @@
         android:id="@+id/ic_groups"
         android:icon="@drawable/ic_groups"
         android:title="@string/name_ic_groups"/>
+
 </menu>

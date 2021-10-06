@@ -12,11 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyVK">
         <activity
-            android:name=".presentation.ui.view.MainActivity"
+            android:name=".presentation.ui.view.activities.MainActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".presentation.ui.view.LoginActivity"
+            android:name=".presentation.ui.view.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

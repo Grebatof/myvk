@@ -1,22 +1,12 @@
-package com.example.myvk.presentation.ui.view
+package com.example.myvk.presentation.ui.view.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.myvk.R
 import com.example.myvk.databinding.ActivityLoginBinding
-import com.example.myvk.domain.model.FriendModel
-import com.example.myvk.domain.use_case.VKFriendsRequest
 import com.vk.api.sdk.VK
-import com.vk.api.sdk.VKApiCallback
-import com.vk.api.sdk.auth.VKAccessToken
-import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
 
 class LoginActivity : AppCompatActivity() {
@@ -35,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.buttonLogin.setOnClickListener {
             binding.buttonLogin.visibility = View.INVISIBLE
-            VK.login(this, arrayListOf(VKScope.FRIENDS, VKScope.GROUPS))
+            VK.login(this, arrayListOf(VKScope.FRIENDS, VKScope.GROUPS, VKScope.WALL))
         }
 
         loginViewModel?.loginSuccessLiveData?.observe(this) {

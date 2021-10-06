@@ -16,4 +16,5 @@
     <string name="previous">Previous</string>
     <string name="hello_myvk">Добро пожаловать в приложение MyVK!</string>
     <string name="login_myvk">Войти</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 </resources>

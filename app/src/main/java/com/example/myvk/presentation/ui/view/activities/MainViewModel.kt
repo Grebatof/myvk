@@ -1,4 +1,4 @@
-package com.example.myvk.presentation.ui.view
+package com.example.myvk.presentation.ui.view.activities
 
 import android.app.Application
 import android.util.Log

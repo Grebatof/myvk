@@ -1,13 +1,13 @@
-package com.example.myvk.presentation.ui.view
+package com.example.myvk.presentation.ui.view.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myvk.R
 import com.example.myvk.databinding.ActivityMainBinding
-import com.example.myvk.presentation.ui.view.fragment.friends.FriendsFragment
-import com.example.myvk.presentation.ui.view.fragment.GroupsFragment
-import com.example.myvk.presentation.ui.view.fragment.NewsFragment
+import com.example.myvk.presentation.ui.view.fragments.friends.FriendsFragment
+import com.example.myvk.presentation.ui.view.fragments.groups.GroupsFragment
+import com.example.myvk.presentation.ui.view.fragments.news.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -31,12 +31,15 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().apply {
             add(R.id.fl_wrapper, newsFragment)
+            hide(newsFragment)
             add(R.id.fl_wrapper, friendsFragment)
             hide(friendsFragment)
             add(R.id.fl_wrapper, groupsFragment)
             hide(groupsFragment)
             commit()
         }
+
+        supportFragmentManager.beginTransaction().show(newsFragment).commit()
 
         findViewById<BottomNavigationView>(binding.bottomNavigation.id).setOnNavigationItemSelectedListener {
             when (it.itemId) {

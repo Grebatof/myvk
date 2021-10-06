@@ -1,6 +1,5 @@
 package com.example.myvk.domain.use_case
 
-import android.util.Log
 import com.example.myvk.domain.model.FriendModel
 import com.vk.api.sdk.VKApiManager
 import com.vk.api.sdk.VKMethodCall
@@ -9,11 +8,7 @@ import org.json.JSONObject
 
 class VKFriendsRequest() : VKRequest<List<FriendModel>>("friends.get") {
     init {
-        addParam(name = "fields", value = "firstName")
-        addParam(name = "fields", value = "last_name")
-        addParam(name = "fields", value = "photo_100")
-        //addParam(name = "fields", value = "online")
-        //addParam(name = "fields", value = "city")
+        addParam(name = "fields", value = "firstName,last_name,photo_100,online,city")
     }
 
     override fun parse(r: JSONObject): List<FriendModel> {
@@ -25,7 +20,7 @@ class VKFriendsRequest() : VKRequest<List<FriendModel>>("friends.get") {
         return result
     }
 
-    /*override fun onExecute(manager: VKApiManager): List<FriendModel> {
+    override fun onExecute(manager: VKApiManager): List<FriendModel> {
         val config = manager.config
 
         params["lang"] = "ru"
@@ -37,5 +32,5 @@ class VKFriendsRequest() : VKRequest<List<FriendModel>>("friends.get") {
             .method(method)
             .version(config.version)
             .build(), this)
-    }*/
+    }
 }
