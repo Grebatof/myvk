@@ -4,6 +4,7 @@ import com.example.myvk.domain.model.NewsModel
 import com.vk.api.sdk.VKApiManager
 import com.vk.api.sdk.VKMethodCall
 import com.vk.api.sdk.requests.VKRequest
+import org.json.JSONArray
 import org.json.JSONObject
 
 class VKNewsRequest() : VKRequest<List<NewsModel>>("newsfeed.get") {
@@ -15,7 +16,19 @@ class VKNewsRequest() : VKRequest<List<NewsModel>>("newsfeed.get") {
         val newsItems = r.getJSONObject("response").getJSONArray("items")
         val groupItems = r.getJSONObject("response").getJSONArray("groups")
         val result = ArrayList<NewsModel>()
-        // Проходимся по массиву новостей
+
+        val listNewsItems = parseNewsItems(newsItems)
+        val listGroupsItems = parseGroupsItems(groupItems)
+
+        for (i in listNewsItems.indices) {
+            listGroupsItems.find {
+                it.id == listNewsItems[i].id
+            }?.let { NewsModel.parse(listNewsItems[i].JSONObject, it.JSONObject) }?.let {
+                result.add(it)
+            }
+        }
+
+        /*// Проходимся по массиву новостей
         for (i in 0 until newsItems.length()) {
             // Если новость не является "постом", то идем дальше по массиву
             if (newsItems.optJSONObject(i).optString("type", "error") != "post")
@@ -32,9 +45,39 @@ class VKNewsRequest() : VKRequest<List<NewsModel>>("newsfeed.get") {
                     continue
                 }
             }
-        }
+        }*/
         return result
     }
+
+    fun parseNewsItems(newsItems: JSONArray): List<NewsDto> {
+        val list = ArrayList<NewsDto>()
+        for (i in 0 until newsItems.length()) {
+            val newsItem = newsItems.getJSONObject(i)
+            if (newsItem.optString("type", "error") != "post") {
+                continue
+            }
+            list.add(NewsDto(
+                id = newsItem.optString("source_id"),
+                JSONObject = newsItem,
+            ))
+        }
+        return list
+    }
+
+    fun parseGroupsItems(groupItems: JSONArray): List<GroupsDto> {
+        val list = ArrayList<GroupsDto>()
+        for (i in 0 until groupItems.length()) {
+            val groupItem = groupItems.getJSONObject(i)
+            list.add(GroupsDto(
+                id = "-" + groupItem.optString("id"),
+                JSONObject = groupItem,
+            ))
+        }
+        return list
+    }
+
+    data class NewsDto(val id: String, val JSONObject: JSONObject)
+    data class GroupsDto(val id: String, val JSONObject: JSONObject)
 
     override fun onExecute(manager: VKApiManager): List<NewsModel> {
         val config = manager.config

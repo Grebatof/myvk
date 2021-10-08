@@ -56,13 +56,12 @@ data class NewsModel(
         }
 
         fun parse(item: JSONObject, group: JSONObject): NewsModel{
-
             return NewsModel(
                 groupIcon = group.optString("photo_100", ""),
                 groupName = group.optString("name", ""),
-                date = item.optString("date", ""),
+                date = java.text.SimpleDateFormat("dd MMMM HH:mm").format(java.util.Date(item.optLong("date", 0L) * 1000)),
                 text = item.optString("text", ""),
-                photos = takePhotos(item),
+                photos = parsePhotos(item),
                 likes = item.optJSONObject("likes")?.optString("count", "-1").toString(),
                 comments = item.optJSONObject("comments")?.optString("count", "-1").toString(),
                 reposts = item.optJSONObject("reposts")?.optString("count", "-1").toString(),
@@ -70,7 +69,7 @@ data class NewsModel(
             )
         }
 
-        fun takePhotos(item: JSONObject): List<String>{
+        fun parsePhotos(item: JSONObject): List<String>{
             val list = ArrayList<String>()
             val attachments = item.optJSONArray("attachments")
             attachments?.let {

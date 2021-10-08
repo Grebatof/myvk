@@ -16,9 +16,14 @@ import android.view.*
 import android.view.WindowManager
 
 
-class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val list = ArrayList<BaseItem>()
+    private var screenWidth: Int = 0
+
+    fun setScreenWidth(screenWidth: Int) {
+        this.screenWidth = screenWidth
+    }
 
     fun setItems(newItems: List<BaseItem>) {
         list.clear()
@@ -28,12 +33,9 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class HeaderViewHolder(val binding: HeaderItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(newsModel: BaseItem.Header) {
-            val simpleDateFormat = java.text.SimpleDateFormat("dd MMMM HH:mm")
-            val date = java.util.Date(newsModel.date.toLong() * 1000)
-
             Picasso.with(itemView.context).load(newsModel.groupIcon).into(binding.newsGroupIcon)
             binding.newsGroupName.text = newsModel.groupName
-            binding.newsDate.text = simpleDateFormat.format(date)
+            binding.newsDate.text = newsModel.date
         }
     }
 
@@ -44,7 +46,7 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    class ImageContentViewHolder(val binding: ImageContentItemBinding) :
+    inner class ImageContentViewHolder(val binding: ImageContentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(newsModel: BaseItem.ImageContent) = runBlocking {
             var image: Bitmap? = null
@@ -52,13 +54,6 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 image = Picasso.with(itemView.context).load(newsModel.photo).get()
             }
             job.join()
-
-            val windowManager = itemView.context.getSystemService(WINDOW_SERVICE) as WindowManager
-
-            val display: Display = windowManager.defaultDisplay
-            val point = Point()
-            display.getSize(point)
-            val screenWidth: Int = point.x
 
             val widthImage = image?.width ?: -1
             val heightImage = image?.height ?: -1
