@@ -1,6 +1,5 @@
 package com.example.myvk.domain.use_case
 
-import com.example.myvk.domain.model.FriendModel
 import com.example.myvk.domain.model.NewsModel
 import com.vk.api.sdk.VKApiManager
 import com.vk.api.sdk.VKMethodCall
@@ -13,20 +12,26 @@ class VKNewsRequest() : VKRequest<List<NewsModel>>("newsfeed.get") {
     }
 
     override fun parse(r: JSONObject): List<NewsModel> {
-        val items = r.getJSONObject("response").getJSONArray("items")
-        val groups = r.getJSONObject("response").getJSONArray("groups")
+        val newsItems = r.getJSONObject("response").getJSONArray("items")
+        val groupItems = r.getJSONObject("response").getJSONArray("groups")
         val result = ArrayList<NewsModel>()
-        for (i in 0 until items.length()) {
-            if (items.optJSONObject(i).optString("type", "error") != "post")
+        // Проходимся по массиву новостей
+        for (i in 0 until newsItems.length()) {
+            // Если новость не является "постом", то идем дальше по массиву
+            if (newsItems.optJSONObject(i).optString("type", "error") != "post")
                 continue
-            val item = items.getJSONObject(i)
-            var group: JSONObject = groups.getJSONObject(0)
-            for (j in 0 until groups.length()) {
-                if (item.optString("source_id") == "-" + groups.getJSONObject(j).optString("id")) {
-                    group = groups.getJSONObject(j)
+            val newsItem = newsItems.getJSONObject(i)
+            var groupItem: JSONObject
+            // Проходимся по массиву групп
+            for (j in 0 until groupItems.length()) {
+                // Ищем совпадения индекса новости и индекса группы
+                if (newsItem.optString("source_id") == "-" + groupItems.getJSONObject(j).optString("id")) {
+                    groupItem = groupItems.getJSONObject(j)
+                    // Добавляем новость в результат
+                    result.add(NewsModel.parse(newsItem, groupItem))
+                    continue
                 }
             }
-            result.add(NewsModel.parse(item, group))
         }
         return result
     }

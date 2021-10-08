@@ -9,8 +9,7 @@ data class NewsModel(
     val groupName: String,
     val date: String,
     val text: String,
-    //val photos: ArrayList<String>,
-    val photos: String,
+    val photos: List<String>,
     val likes: String,
     val comments: String,
     val reposts: String,
@@ -22,7 +21,9 @@ data class NewsModel(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readString()!!,
+        arrayListOf<String>().apply {
+            parcel.readList(this, String()::class.java.classLoader)
+        },
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
@@ -34,7 +35,7 @@ data class NewsModel(
         parcel.writeString(groupName)
         parcel.writeString(date)
         parcel.writeString(text)
-        parcel.writeString(photos)
+        parcel.writeStringList(photos)
         parcel.writeString(likes)
         parcel.writeString(comments)
         parcel.writeString(reposts)
@@ -55,17 +56,34 @@ data class NewsModel(
         }
 
         fun parse(item: JSONObject, group: JSONObject): NewsModel{
+
             return NewsModel(
                 groupIcon = group.optString("photo_100", ""),
                 groupName = group.optString("name", ""),
                 date = item.optString("date", ""),
                 text = item.optString("text", ""),
-                photos = "",
+                photos = takePhotos(item),
                 likes = item.optJSONObject("likes")?.optString("count", "-1").toString(),
                 comments = item.optJSONObject("comments")?.optString("count", "-1").toString(),
                 reposts = item.optJSONObject("reposts")?.optString("count", "-1").toString(),
                 views = item.optJSONObject("views")?.optString("count", "-1").toString(),
             )
+        }
+
+        fun takePhotos(item: JSONObject): List<String>{
+            val list = ArrayList<String>()
+            val attachments = item.optJSONArray("attachments")
+            attachments?.let {
+                for (j in 0 until attachments.length()) {
+                    if (attachments.optJSONObject(j).optString("type") == "photo") {
+                        val photo = attachments.optJSONObject(j)?.optJSONObject("photo")?.optJSONArray("sizes")
+                        photo?.optJSONObject(photo.length() - 1)?.optString("url")?.let {
+                            list.add(it)
+                        }
+                    }
+                }
+            }
+            return list
         }
     }
 }
