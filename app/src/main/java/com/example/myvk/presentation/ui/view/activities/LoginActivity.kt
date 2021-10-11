@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import androidx.lifecycle.ViewModelProvider
 import com.example.myvk.databinding.ActivityLoginBinding
 import com.vk.api.sdk.VK
@@ -19,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+        getSupportActionBar()?.hide(); // hide the title bar  
         setContentView(binding.root)
 
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
