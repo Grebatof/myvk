@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar()?.hide(); // hide the title bar  
+        getSupportActionBar()?.hide(); // hide the title bar
         setContentView(binding.root)
 
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)

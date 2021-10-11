@@ -32,18 +32,11 @@ class GroupsFragment : Fragment() {
         binding.recyclerGroups.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = groupsAdapter
-        }
-
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        if (!hidden) {
             groupsViewModel.loadGroups()
-            groupsViewModel.listGroupsLiveData.observe(this, Observer {
+            groupsViewModel.listGroupsLiveData.observe(viewLifecycleOwner, Observer {
                 groupsAdapter.setItems(it)
             })
         }
-        super.onHiddenChanged(hidden)
+        super.onViewCreated(view, savedInstanceState)
     }
 }
