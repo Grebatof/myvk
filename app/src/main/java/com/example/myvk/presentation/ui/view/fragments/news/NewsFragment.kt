@@ -1,7 +1,5 @@
 package com.example.myvk.presentation.ui.view.fragments.news
 
-import android.content.Context
-import android.graphics.Point
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -33,18 +31,8 @@ class NewsFragment : Fragment() {
         binding.recyclerNews.apply {
             layoutManager = LinearLayoutManager(context)
 
-            val windowManager = this.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-
-            val display: Display = windowManager.defaultDisplay
-            val point = Point()
-            display.getSize(point)
-            newsAdapter.setScreenWidth(point.x)
+            newsAdapter.setScreenWidth(resources.displayMetrics.widthPixels)
             adapter = newsAdapter
-            /*val itemDecoration = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
-            getDrawable(this.context, R.drawable.divider)?.let {
-                itemDecoration.setDrawable(it)
-                addItemDecoration(itemDecoration)
-            }*/
         }
         super.onViewCreated(view, savedInstanceState)
     }

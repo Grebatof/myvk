@@ -6,13 +6,13 @@ import com.vk.api.sdk.VKMethodCall
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 
-class VKGroupsRequest() : VKRequest<List<GroupModel>>("groups.get") {
+class VKGroupsRequest() : VKRequest<List<GroupModel>>("newsfeed.get") {
     init {
         //addParam(name = "fields", value = "name")
     }
 
     override fun parse(r: JSONObject): List<GroupModel> {
-        val groupItems = r.getJSONObject("response").getJSONArray("items")
+        val groupItems = r.getJSONObject("response").getJSONArray("groups")
         val result = ArrayList<GroupModel>()
         for (i in 0 until groupItems.length()) {
             result.add(GroupModel.parse(groupItems.getJSONObject(i)))

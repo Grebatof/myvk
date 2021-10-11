@@ -32,11 +32,11 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         val list = ArrayList<BaseItem>()
         news.forEach {
             list.add(BaseItem.Header(groupIcon = it.groupIcon, groupName = it.groupName, date = it.date))
-            list.add(BaseItem.TextContent(text = it.text))
+            list.add(BaseItem.TextContent(text = it.text)) // !null
             it.photos.forEach { photo ->
                 list.add(BaseItem.ImageContent(photo = photo))
             }
-            list.add(BaseItem.State(likes = it.likes, comments = it.comments, reposts = it.reposts, views = it.views))
+            list.add(BaseItem.Statistics(likes = it.likes, comments = it.comments, reposts = it.reposts, views = it.views))
         }
         return list
     }

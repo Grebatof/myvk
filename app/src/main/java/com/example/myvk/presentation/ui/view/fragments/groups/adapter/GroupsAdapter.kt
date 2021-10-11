@@ -22,9 +22,8 @@ class GroupsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class GroupsViewHolder(val binding: GroupItemBinding): RecyclerView.ViewHolder(binding.root) {
-
         fun bind(groupModel: GroupModel) {
-            groupModel.groupIcon?.let { url ->
+            groupModel.groupIcon.let { url ->
                 Picasso.with(itemView.context).load(url).into(binding.groupIcon)
             }
 

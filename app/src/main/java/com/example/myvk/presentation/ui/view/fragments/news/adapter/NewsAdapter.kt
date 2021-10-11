@@ -1,8 +1,6 @@
 package com.example.myvk.presentation.ui.view.fragments.news.adapter
 
-import android.content.Context.WINDOW_SERVICE
 import android.graphics.Bitmap
-import android.graphics.Point
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myvk.R
@@ -13,7 +11,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import android.view.*
-import android.view.WindowManager
 
 
 class NewsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -67,8 +64,8 @@ class NewsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    class StateViewHolder(val binding: StateItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(newsModel: BaseItem.State) {
+    class StateViewHolder(val binding: StatisticsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(newsModel: BaseItem.Statistics) {
             binding.newsLikes.text = "${newsModel.likes} лайков"
             binding.newsComments.text = "${newsModel.comments} комментариев"
             binding.newsReposts.text = "${newsModel.reposts} репостов"
@@ -103,7 +100,7 @@ class NewsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     parent.context),
                 parent,
                 false))
-            BaseItem.TYPE_STATE -> StateViewHolder(binding = StateItemBinding.inflate(LayoutInflater.from(
+            BaseItem.TYPE_STATISTICS -> StateViewHolder(binding = StatisticsItemBinding.inflate(LayoutInflater.from(
                 parent.context), parent, false))
 
             BaseItem.TYPE_ERROR -> ErrorViewHolder(itemView = LayoutInflater.from(parent.context)
@@ -117,7 +114,7 @@ class NewsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val elem = list[position]
+        val elem = list[holder.absoluteAdapterPosition]
         when (holder) {
             is HeaderViewHolder -> {
                 if (elem is BaseItem.Header)
@@ -132,7 +129,7 @@ class NewsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     holder.bind(elem)
             }
             is StateViewHolder -> {
-                if (elem is BaseItem.State)
+                if (elem is BaseItem.Statistics)
                     holder.bind(elem)
             }
             is ErrorViewHolder -> {

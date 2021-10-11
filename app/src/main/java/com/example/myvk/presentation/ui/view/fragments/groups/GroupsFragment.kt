@@ -33,6 +33,7 @@ class GroupsFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = groupsAdapter
         }
+
         super.onViewCreated(view, savedInstanceState)
     }
 

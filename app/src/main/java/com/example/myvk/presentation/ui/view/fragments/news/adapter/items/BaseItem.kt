@@ -6,7 +6,7 @@ sealed class BaseItem(val type: Int) {
     data class Header(val groupIcon: String, val groupName: String, val date: String): BaseItem(TYPE_HEADER)
     data class TextContent(val text: String): BaseItem(TYPE_TEXT_CONTENT)
     data class ImageContent(val photo: String): BaseItem(TYPE_IMAGE_CONTENT)
-    data class State(val likes: String, val comments: String, val reposts: String, val views: String): BaseItem(TYPE_STATE)
+    data class Statistics(val likes: String, val comments: String, val reposts: String, val views: String): BaseItem(TYPE_STATISTICS)
 
     companion object {
         const val TYPE_ERROR = 0
@@ -14,6 +14,6 @@ sealed class BaseItem(val type: Int) {
         const val TYPE_HEADER = 2
         const val TYPE_TEXT_CONTENT = 3
         const val TYPE_IMAGE_CONTENT = 4
-        const val TYPE_STATE = 5
+        const val TYPE_STATISTICS = 5
     }
 }
